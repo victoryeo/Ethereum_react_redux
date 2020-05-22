@@ -40,16 +40,12 @@ class App extends Component {
           console.error('error', err);
         }
 	try {
-          this.web3.eth.subscribe('newBlockHeaders', (err, b) => {
-            Utils.checkBalance(
-              this.web3,
-              this.props.STPupdateAccounts,
-              this.props.STPupdateTotalBalance
-            )
-	     console.log(this.props.totalBalance)
-		console.log(this.props.account)
-
-	  }) 
+          this.web3.eth.subscribe('newBlockHeaders', (err, res) => {
+		  console.log(res)
+		  console.log(err)
+	  }).on("data", (blockHeader) => {
+	    console.log(blockHeader)
+	  }).on("error", console.error) 
 	} catch (err) {
 	  console.error('error', err);
 	}      
